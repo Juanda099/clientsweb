@@ -1,0 +1,82 @@
+<div class="container mt-5">
+  <!-- Título dinámico -->
+  <h2 class="text-center mb-4 display-6">
+    {{ isEditMode ? 'Actualizar Cliente' : 'Nuevo Cliente' }}
+  </h2>
+
+  <!-- Formulario -->
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm p-4">
+        <!-- Verificación de existencia del formulario -->
+        <form *ngIf="form" [formGroup]="form" (ngSubmit)="save()">
+          <!-- Campo Nombre -->
+          <div class="mb-3">
+            <label for="name" class="form-label">Nombre</label>
+            <input type="text" id="name" formControlName="name" class="form-control" />
+            <div *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="text-danger">
+              El nombre es requerido.
+            </div>
+          </div>
+
+          <!-- Campo Email -->
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" formControlName="email" class="form-control" />
+            <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="text-danger">
+              El email es requerido.
+            </div>
+          </div>
+
+          <!-- Campo Cedula -->
+          <div class="mb-3">
+            <label for="cedula" class="form-label">Cédula</label>
+            <input type="text" id="cedula" formControlName="cedula" class="form-control" />
+            <div *ngIf="form.get('cedula')?.invalid && form.get('cedula')?.touched" class="text-danger">
+              La cédula es requerida.
+            </div>
+          </div>
+
+          <!-- Campo numero -->
+          <div class="mb-3">
+            <label for="cedula" class="form-label">Número</label>
+            <input type="text" id="numero" formControlName="numero" class="form-control" />
+            <div *ngIf="form.get('numero')?.invalid && form.get('numero')?.touched" class="text-danger">
+              La cédula es requerida.
+            </div>
+          </div>
+
+          <!-- Campo Ciudad -->
+          <div class="mb-3">
+            <label for="ciudadD" class="form-label">Ciudad</label>
+            <input type="text" id="ciudadD" formControlName="ciudadD" class="form-control" />
+            <div *ngIf="form.get('ciudadD')?.invalid && form.get('ciudadD')?.touched" class="text-danger">
+              La ciudad es requerida.
+            </div>
+          </div>
+
+          <!-- Campo Habitaciones -->
+          <div class="mb-3">
+            <label for="room" class="form-label">Habitación</label>
+            <select id="room" formControlName="roomId" class="form-control">
+              <option value="" disabled selected>Selecciona una habitación</option>
+              <option *ngFor="let room of rooms" [value]="room.id">{{ room.number }}</option>
+            </select>
+            <div *ngIf="form.get('roomId')?.invalid && form.get('roomId')?.touched" class="text-danger">
+              La habitación es requerida.
+            </div>
+            <!-- Mensaje de advertencia si la habitación está ocupada -->
+            <div *ngIf="roomOccupied" class="text-danger mt-2">
+              Esta habitación ya está ocupada por otro cliente.
+            </div>
+          </div>
+
+          <!-- Botón Enviar -->
+          <button type="submit" class="btn btn-primary w-100" [disabled]="roomOccupied">
+            {{ isEditMode ? 'Actualizar Cliente' : 'Crear Cliente' }}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

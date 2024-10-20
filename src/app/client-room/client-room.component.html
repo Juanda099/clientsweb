@@ -1,0 +1,51 @@
+<div class="container mt-5">
+  <div class="text-center mb-4">
+    <h2 class="display-4 font-weight-bold text-primary">Hotel Miami</h2>
+    <h3 class="text-muted">Sistema de Reserva</h3>
+  </div>
+  <!-- Botón para nuevo cliente -->
+  <div class="text-end mb-3">
+    <button class="btn btn-success btn-lg" routerLink='/'>
+      <i class="bi bi-person-plus"></i> Regresar
+    </button>
+  </div>
+  <!-- Tabla de clientes -->
+  <div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered align-middle">
+      <thead class="table-primary">
+        <tr>
+          <th>ID</th>
+          <th>NOMBRE</th>
+          <th>EMAIL</th>
+          <th>FECHA DE CREACIÓN</th>
+          <th>HABITACIÓN</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let client of clients; trackBy: trackById">
+          <td>{{ client.id }}</td>
+          <td>{{ client.name }}</td>
+          <td>{{ client.email }}</td>
+          <td>{{ client.createAt | date: 'dd/MM/yyyy hh:mm a' }}</td>
+          <td>{{ client.room?.number || 'Sin asignar' }}</td>
+          <td class="text-center">
+            <div class="btn-group" role="group">
+              <!-- Enlace para actualizar el cliente -->
+              <!-- Botón actualizar -->
+              <button class="btn btn-warning" [routerLink]="['/', client.id, 'edit']">
+                <i class="bi bi-pencil-square"></i> Actualizar
+              </button>
+
+              <!-- Botón eliminar -->
+              <button class="btn btn-danger ms-2" (click)="deleteClient(client)">
+                <i class="bi bi-trash"></i> Eliminar
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

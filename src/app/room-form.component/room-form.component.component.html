@@ -1,0 +1,38 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4">{{ isEditMode ? 'Editar Habitación' : 'Nueva Habitación' }}</h2>
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <div class="mb-3">
+      <label for="number" class="form-label">Número de Habitación</label>
+      <input type="text" id="number" formControlName="number" class="form-control" required />
+      <div *ngIf="form.get('number')?.invalid && form.get('number')?.touched" class="text-danger">
+        El número de habitación es requerido.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="status" class="form-label">Estado</label>
+      <select id="status" formControlName="status" class="form-control" required>
+        <option value="" disabled selected>Selecciona un estado</option>
+        <option value="AVAILABLE">Disponible</option>
+        <option value="OCCUPIED">Ocupada</option>
+        <option value="UNDER_MAINTENANCE">En Mantenimiento</option>
+        <option value="RESERVED">Reservada</option>
+      </select>
+      <div *ngIf="form.get('status')?.invalid && form.get('status')?.touched" class="text-danger">
+        El estado es requerido.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="price" class="form-label">Precio por Noche</label>
+      <input type="number" id="price" formControlName="price" class="form-control" required />
+      <div *ngIf="form.get('price')?.invalid && form.get('price')?.touched" class="text-danger">
+        El precio es requerido y debe ser mayor o igual a 0.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100 mb-2">
+      {{ isEditMode ? 'Actualizar Habitación' : 'Crear Habitación' }}
+    </button>
+  </form>
+</div>
